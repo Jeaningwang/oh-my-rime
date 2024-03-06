@@ -102,7 +102,7 @@ patch:
   # 使用新的横竖展示配置
   # "style/horizontal": true                   # 横向展示
   # 新的横竖展示配置
-  "style/candidate_list_layout": stacked       # stacked | linear  候选项排列方向（如果你想调整为横屏，可以调整这个）
+  # "style/candidate_list_layout": stacked       # stacked | linear  候选项排列方向（如果你想调整为横屏，可以调整这个）
   "style/text_orientation": horizontal         # horizontal | vertical  文字排列方向"
   "style/inline_preedit": false   # 内嵌预编辑
   "style/layout/border_width": 0           # 窗口边界高度
