@@ -1,0 +1,34 @@
+# wubi86: 在 mint 上的扩展
+# encoding: utf-8
+
+patch:
+  key_binder:
+    bindings:
+      - { accept: "Control+j", send: Down, when: has_menu }
+      - { accept: "Control+k", send: Up, when: has_menu }
+      - { accept: "Control+h", send: Page_Up, when: has_menu }
+      - { accept: "Control+l", send: Page_Down, when: has_menu }
+  switches:
+    - name: ascii_mode
+      reset: 1
+      states: [中, 英]
+    - name: emoji_suggestion
+      reset: 1
+      states: [ "😣️","😁️"]
+    - name: full_shape
+      states: [ 半角, 全角 ]
+    - name: transcription
+      reset: 0
+      states: [ 简体 , 繁体 ]
+    - name: ascii_punct
+      states: [ 。，, ．， ]
+  translator:
+    dictionary: wubi86_jidian
+    enable_charset_filter: true    # 开启字符集过滤
+    enable_completion: true    # 是否显示编码未输入完整的词条
+    enable_user_dict: true    #
+    enable_sentence: false
+    enable_encoder: false
+    encode_commit_history: false
+    preedit_format:
+    comment_format:

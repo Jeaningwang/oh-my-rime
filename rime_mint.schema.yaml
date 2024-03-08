@@ -20,6 +20,7 @@ schema:
     - wubi98_mint # 98五笔库 https://github.com/yanhuacuo/98wubi-tables
     - stroke
     - melt_eng # 英文方案
+    - rime_mint
 
 key_binder:
   import_preset: default
@@ -79,6 +80,7 @@ engine:
     - reverse_lookup_translator@wubi98_mint　
     - reverse_lookup_translator@chaizi
     - reverse_lookup_translator@stroke
+    - reverse_lookup_translator@rime_mint
     # - reverse_lookup_translator # 反查模块，多标签情况下去除
   filters:
     - lua_filter@corrector                # 错音错字提示
@@ -296,8 +298,15 @@ chaizi:
     - xform/([nljqxy])v/$1ü/
   tips: 〔拆字〕
 
+rime_mint:
+  tag: rime_mint
+  dictionary: rime_mint
+  prefix: "z"
+  tips: [拼音]
+
+
 reverse_lookup:
-  tags: [wubi98_mint,stroke,chaizi]
+  tags: [wubi98_mint,stroke,chaizi,rime_mint]
   overwrite_comment: true
   dictionary: dicts/rime_ice.8105
 
@@ -329,5 +338,6 @@ recognizer:
     wubi98_mint: "uw[a-z]*'?$"
     stroke: "ui[a-z]*'?$"
     chaizi: "uu[a-z]*'?$"
+    rime_mint: "^z[a-z]*'?$" # 反查词条的正则
     rmb: "^R[0-9]+[.]?[0-9]*"        # 响应 lua_translator@number_translator 脚本将自动获取第 2 个字符作为触发前缀
     gregorian_to_lunar: "^N[0-9]{1,8}"  # 响应 lua_translator@Chinese_lunar_calendar 公历转农历，输入 N20240115 得到「二〇二四年腊月初五」，脚本将自动获取第 2 个字符作为触发前缀
