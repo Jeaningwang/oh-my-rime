@@ -36,7 +36,7 @@ patch:
     comment_text_color: 0xefefef #注解文字
     label_color: 0xefefef # 预选栏编号颜色
   "style/color_scheme_dark": MyStyleMiDark
-  "style/color_scheme": MyStyleMi
+  "style/color_scheme": MyStyleMiDark
   "style/blur_window": true                   # 毛玻璃（新版小狼毫特性）
   "style/display_tray_icon": false
   "style/font_face": "Microsoft YaHei"         # 文本字体
@@ -45,9 +45,9 @@ patch:
   "style/font_point": 12                       # 全局字体大小
   "style/label_font_point": 12                 # 候选词数字大小
   # 使用新的横竖展示配置
-  # "style/horizontal": true                   # 横向展示
+  "style/horizontal": true                   # 横向展示
   # 新的横竖展示配置
-  "style/candidate_list_layout": stacked       # stacked | linear  候选项排列方向（如果你想调整为横屏，可以调整这个）
+  # "style/candidate_list_layout": linear       # stacked | linear  候选项排列方向（如果你想调整为横屏，可以调整这个）
   "style/text_orientation": horizontal         # horizontal | vertical  文字排列方向"
   "style/inline_preedit": false   # 内嵌预编辑
   "style/layout/border_width": 0           # 窗口边界高度

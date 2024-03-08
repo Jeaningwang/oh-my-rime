@@ -22,13 +22,17 @@ patch:
       states: [ 简体 , 繁体 ]
     - name: ascii_punct
       states: [ 。，, ．， ]
-  translator:
-    dictionary: wubi86_jidian
-    enable_charset_filter: true    # 开启字符集过滤
-    enable_completion: true    # 是否显示编码未输入完整的词条
-    enable_user_dict: true    #
-    enable_sentence: false
-    enable_encoder: false
-    encode_commit_history: false
-    preedit_format:
-    comment_format:
+  "translator/dictionary": wubi86_jidian
+  "translator/enable_completion": true
+  "translator/enable_user_dict": true
+  # translator:
+  #   dictionary: wubi86_jidian
+  #   enable_charset_filter: true    # 开启字符集过滤
+  #   enable_completion: true    # 是否显示编码未输入完整的词条
+  #   enable_user_dict: true    #
+  #   enable_sentence: false
+  #   enable_encoder: false
+  #   encode_commit_history: false
+  #   preedit_format:
+  #   comment_format:
+  "menu/page_size": 4
