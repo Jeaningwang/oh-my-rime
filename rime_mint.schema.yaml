@@ -77,7 +77,7 @@ engine:
     - table_translator@melt_eng  # 英文输入（作为子翻译器，优先级需要比原生的低）
     - table_translator@cn_en     # 中英混合词汇
     # - echo_translator      # ※ 没有候选词，返回字符
-    - reverse_lookup_translator@wubi98_mint　
+    - reverse_lookup_translator@wubi98_mint
     - reverse_lookup_translator@chaizi
     - reverse_lookup_translator@stroke
     - reverse_lookup_translator@rime_mint
