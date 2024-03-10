@@ -83,7 +83,7 @@ transcription_cc:
   excluded_types: [ reverse_lookup ]  # 不转换反查（两分拼字）的内容
   
 translator:
-  dictionary: wubi98_mint
+  dictionary: wubi86_jidian
   db_class: tabledb
   initial_quality: 100000
   enable_charset_filter: false
