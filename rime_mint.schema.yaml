@@ -268,35 +268,35 @@ speller:
     - derive/([tl])eng$/$1en/ # ten → teng
     - derive/([qwrtypsdfghjklzxcbnm])([aeio])ng$/$1ng/ # lng → lang、leng、ling、long
 
-wubi98_mint:
-  tag: wubi98_mint
-  dictionary: wubi98_mint
-  enable_user_dict: false
-  enable_completion: true
-  prefix: "uw"
-  suffix: "'"
-  tips: 〔五笔〕
-
-stroke:
-  tag: stroke
-  dictionary: stroke
-  enable_user_dict: false
-  prefix: 'ui'
-  suffix: "'"
-  tips: 〔笔画〕
-  preedit_format:
-    - xlit/hspnz/一丨丿丶乙/
-
-chaizi:
-  tag: chaizi
-  dictionary: chaizi
-  enable_completion: true
-  prefix: "uu"
-  preedit_format:
-    - xform/([nljqxy])v/$1ü/
-  comment_format:
-    - xform/([nljqxy])v/$1ü/
-  tips: 〔拆字〕
+# wubi98_mint:
+#   tag: wubi98_mint
+#   dictionary: wubi98_mint
+#   enable_user_dict: false
+#   enable_completion: true
+#   prefix: "uw"
+#   suffix: "'"
+#   tips: 〔五笔〕
+# 
+# stroke:
+#   tag: stroke
+#   dictionary: stroke
+#   enable_user_dict: false
+#   prefix: 'ui'
+#   suffix: "'"
+#   tips: 〔笔画〕
+#   preedit_format:
+#     - xlit/hspnz/一丨丿丶乙/
+# 
+# chaizi:
+#   tag: chaizi
+#   dictionary: chaizi
+#   enable_completion: true
+#   prefix: "uu"
+#   preedit_format:
+#     - xform/([nljqxy])v/$1ü/
+#   comment_format:
+#     - xform/([nljqxy])v/$1ü/
+#   tips: 〔拆字〕
 
 rime_mint:
   tag: rime_mint
