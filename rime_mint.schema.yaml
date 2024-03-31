@@ -20,7 +20,7 @@ schema:
     - wubi98_mint # 98五笔库 https://github.com/yanhuacuo/98wubi-tables
     - stroke
     - melt_eng # 英文方案
-    - rime_mint
+    - pinyin
 
 key_binder:
   import_preset: default
@@ -63,6 +63,7 @@ engine:
     - affix_segmentor@wubi98_mint
     - affix_segmentor@chaizi
     - affix_segmentor@stroke
+    - affix_segmentor@pinyin_reverse_lookup
     - abc_segmentor # 標識常規的文字段落
     - punct_segmentor # 標識句讀段落
     - fallback_segmentor # 標識其他未標識段落
@@ -80,7 +81,7 @@ engine:
     - reverse_lookup_translator@wubi98_mint
     - reverse_lookup_translator@chaizi
     - reverse_lookup_translator@stroke
-    - reverse_lookup_translator@rime_mint
+    - reverse_lookup_translator@pinyin_reverse_lookup
     # - reverse_lookup_translator # 反查模块，多标签情况下去除
   filters:
     - lua_filter@corrector                # 错音错字提示
@@ -287,26 +288,27 @@ speller:
 #   preedit_format:
 #     - xlit/hspnz/一丨丿丶乙/
 # 
-# chaizi:
-#   tag: chaizi
-#   dictionary: chaizi
-#   enable_completion: true
-#   prefix: "uu"
-#   preedit_format:
-#     - xform/([nljqxy])v/$1ü/
-#   comment_format:
-#     - xform/([nljqxy])v/$1ü/
-#   tips: 〔拆字〕
+chaizi:
+  tag: chaizi
+  dictionary: chaizi
+  enable_completion: true
+  prefix: "uu"
+  preedit_format:
+    - xform/([nljqxy])v/$1ü/
+  comment_format:
+    - xform/([nljqxy])v/$1ü/
+  tips: 〔拆字〕
 
-rime_mint:
-  tag: rime_mint
-  dictionary: rime_mint
+pinyin_reverse_lookup:
+  tag: pinyin_lookup
+  dictionary: pinyin
+  enable_completion: true
   prefix: "z"
-  tips: [拼音]
+  tips: 〔拼音〕
 
 
 reverse_lookup:
-  tags: [wubi98_mint,stroke,chaizi,rime_mint]
+  tags: [wubi98_mint,stroke,chaizi,pinyin_lookup]
   overwrite_comment: true
   dictionary: dicts/rime_ice.8105
 
@@ -338,6 +340,6 @@ recognizer:
     wubi98_mint: "uw[a-z]*'?$"
     stroke: "ui[a-z]*'?$"
     chaizi: "uu[a-z]*'?$"
-    rime_mint: "^z[a-z]*'?$" # 反查词条的正则
+    pinyin_lookup: "^z[a-z]*$" # 反查词条的正则
     rmb: "^R[0-9]+[.]?[0-9]*"        # 响应 lua_translator@number_translator 脚本将自动获取第 2 个字符作为触发前缀
     gregorian_to_lunar: "^N[0-9]{1,8}"  # 响应 lua_translator@Chinese_lunar_calendar 公历转农历，输入 N20240115 得到「二〇二四年腊月初五」，脚本将自动获取第 2 个字符作为触发前缀
