@@ -288,16 +288,16 @@ speller:
 #   preedit_format:
 #     - xlit/hspnz/一丨丿丶乙/
 # 
-chaizi:
-  tag: chaizi
-  dictionary: chaizi
-  enable_completion: true
-  prefix: "uu"
-  preedit_format:
-    - xform/([nljqxy])v/$1ü/
-  comment_format:
-    - xform/([nljqxy])v/$1ü/
-  tips: 〔拆字〕
+# chaizi:
+#   tag: chaizi
+#   dictionary: chaizi
+#   enable_completion: true
+#   prefix: "uu"
+#   preedit_format:
+#     - xform/([nljqxy])v/$1ü/
+#   comment_format:
+#     - xform/([nljqxy])v/$1ü/
+#   tips: 〔拆字〕
 
 pinyin_reverse_lookup:
   tag: pinyin_lookup
