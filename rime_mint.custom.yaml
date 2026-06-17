@@ -22,7 +22,6 @@ patch:
       states: [简体, 繁体]
     - name: ascii_punct
       states: [。，, ．，]
-  "translator/dictionary": wubi86_jidian
   "translator/enable_completion": true
   "translator/enable_user_dict": true
   # translator:
