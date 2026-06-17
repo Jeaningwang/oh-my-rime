@@ -23,25 +23,25 @@ schema:
 switches:
   - name: ascii_mode
     reset: 0
-    states: [ 中文, 英文 ]
+    states: [中文, 英文]
   - name: emoji_suggestion
     reset: 1
-    states: [ "😣️","😁️"]
+    states: ["😣️", "😁️"]
   - name: full_shape
-    states: [ 半角, 全角 ]
+    states: [半角, 全角]
   - name: transcription
     reset: 0
-    states: [ 简体 , 繁体 ]
+    states: [简体, 繁体]
   - name: ascii_punct
-    states: [ 。，, ．， ]
+    states: [。，, ．，]
 
 engine:
   filters:
     - simplifier
     - simplifier@emoji_suggestion
-    - lua_filter@autocap_filter                     # 英文自动大写
+    - lua_filter@autocap_filter # 英文自动大写
     - simplifier@transcription_cc
-    - lua_filter@reduce_english_filter    # 降低部分英语单词在候选项的位置
+    - lua_filter@reduce_english_filter # 降低部分英语单词在候选项的位置
     - uniquifier
   processors:
     - ascii_composer
@@ -63,13 +63,14 @@ engine:
     - punct_segmentor
     - fallback_segmentor
   translators:
-    - punct_translator  # ※ 轉換標點符號
+    - punct_translator # ※ 轉換標點符號
     - script_translator
     - lua_translator@date_translator # 日期Lua
     - lua_translator@time_translator # 时间Lua
     - lua_translator@week_translator # 星期Lua
     - lua_translator@number_translator # 金额大小写
-    - table_translator@melt_eng  # 英文输入（作为子翻译器，优先级需要比原生的低）
+    - lua_translator@Chinese_lunar_calendar    # 农历
+    - table_translator@melt_eng # 英文输入（作为子翻译器，优先级需要比原生的低）
     - reverse_lookup_translator@wubi86_jidian
     - reverse_lookup_translator@chaizi
     - reverse_lookup_translator@stroke
@@ -84,9 +85,9 @@ speller:
 # 简繁切换
 transcription_cc:
   option_name: transcription
-  opencc_config: s2t.json             # s2t.json | s2hk.json | s2tw.json | s2twp.json
-  tips: none                          # 转换提示: all 都显示 | char 仅单字显示 | none 不显示。
-  excluded_types: [ reverse_lookup ]  # 不转换反查(两分拼字)的内容
+  opencc_config: s2t.json # s2t.json | s2hk.json | s2tw.json | s2twp.json
+  tips: none # 转换提示: all 都显示 | char 仅单字显示 | none 不显示。
+  excluded_types: [reverse_lookup] # 不转换反查(两分拼字)的内容
 
 translator:
   dictionary: wubi86_jidian
@@ -103,9 +104,9 @@ translator:
     - "^z.*$"
 
 melt_eng:
-  dictionary: melt_eng           # 英文词典
-  enable_sentence: false         # 关闭自动造词
-  enable_completion: false       # 关闭自动提示
+  dictionary: melt_eng # 英文词典
+  enable_sentence: false # 关闭自动造词
+  enable_completion: false # 关闭自动提示
   initial_quality: 0.8
 
 recognizer:
@@ -115,15 +116,20 @@ recognizer:
     punct: "^/([0-9]0?|[A-Za-z]+)$"
     uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
     url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
-    pinyin_lookup: "^z[a-z]*$"             # 拼音反查(优先于主码,避免 z 前缀被主码吞掉)
-    stroke: "ui[a-z]*'?$"                  # 笔画反查
-    chaizi: "uu[a-z]*'?$"                  # 拆字反查
-    wubi86_jidian: "^[a-z]+'?$"          # 默认: 五笔86 主码(放最后,作为 catch-all)
+    pinyin_lookup: "^z[a-z]*$" # 拼音反查(优先于主码,避免 z 前缀被主码吞掉)
+    stroke: "ui[a-z]*'?$" # 笔画反查
+    chaizi: "uu[a-z]*'?$" # 拆字反查
+    wubi86_jidian: "^[a-z]+'?$" # 默认: 五笔86 主码(放最后,作为 catch-all)
+    rmb: "^R[0-9]+[.]?[0-9]*" # 响应 lua_translator@number_translator 脚本将自动获取第 2 个字符作为触发前缀
+    gregorian_to_lunar: "^N[0-9]{1,8}" # 响应 lua_translator@Chinese_lunar_calendar 公历转农历，输入 N20240115 得到「二〇二四年腊月初五」，脚本将自动获取第 2 个字符作为触发前缀
 
 history:
   input: z
   size: 1
   initial_quality: 1
+
+# 中国农历配置
+Chinese_lunar_calendar: lunar
 
 pinyin_reverse_lookup:
   tag: pinyin_lookup
@@ -135,33 +141,33 @@ pinyin_reverse_lookup:
 key_binder:
   import_preset: default
   bindings:
-    - {accept: "Control+Shift+E", toggle: emoji_suggestion, when: always}
-    - {accept: "Control+Shift+1", toggle: transcription, when: has_menu}
-    - {accept: bracketleft, send: Page_Up, when: paging}      # 使用`[`进行向上翻页
-    - {accept: bracketright, send: Page_Down, when: has_menu} # 使用`]`进行向下翻页
-    - {accept: minus, send: Page_Up, when: paging}            # 使用`-`进行向上翻页
-    - {accept: equal, send: Page_Down, when: has_menu}        # 使用`=`进行向下翻页
+    - { accept: "Control+Shift+E", toggle: emoji_suggestion, when: always }
+    - { accept: "Control+Shift+1", toggle: transcription, when: has_menu }
+    - { accept: "Control+j", send: Down, when: has_menu }
+    - { accept: "Control+k", send: Up, when: has_menu }
+    - { accept: "Control+h", send: Page_Up, when: has_menu }
+    - { accept: "Control+l", send: Page_Down, when: has_menu }
 
 punctuator:
   import_preset: symbols
   # 定义部分半角字符
   half_shape:
-      "#": "#"
-      "*": "*"
-      '.' : ["。"]
-      "`": "`"
-      "~": "~"
-      "@": "@"
-      "=": "="
-      "/": ["/", "÷",]
-      '\': "、"
-      "_" : "──"
-      "'": {pair: ["「", "」"]}
-      "[": ["【", "["]
-      "]": ["】", "]"]
-      "$": ["¥", "$", "€", "£", "¢", "¤"]
-      "<": ["《", "〈", "«", "<"]
-      ">": ["》", "〉", "»", ">"]
+    "#": "#"
+    "*": "*"
+    ".": ["。"]
+    "`": "`"
+    "~": "~"
+    "@": "@"
+    "=": "="
+    "/": ["/", "÷"]
+    '\': "、"
+    "_": "──"
+    "'": { pair: ["「", "」"] }
+    "[": ["【", "["]
+    "]": ["】", "]"]
+    "$": ["¥", "$", "€", "£", "¢", "¤"]
+    "<": ["《", "〈", "«", "<"]
+    ">": ["》", "〉", "»", ">"]
 
 menu:
   page_size: 9
