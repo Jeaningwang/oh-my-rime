@@ -10,3 +10,9 @@ build
 *.userdb
 /.place_holder
 /sync/
+
+# AI 相关目录
+/.claude/
+/.omc/
+/_bmad/
+/_bmad-output/
